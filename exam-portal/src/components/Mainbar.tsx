@@ -2,10 +2,10 @@
 import React, { useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "./ui/sidebar";
 import {
-  IconArrowLeft,
-  IconBrandTabler,
-  IconSettings,
-  IconUserBolt,
+  IconHome,
+  IconLayoutDashboard,
+  IconUserCog,
+  IconLogout2,
 } from "@tabler/icons-react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
@@ -13,35 +13,38 @@ import { cn } from "@/lib/utils";
 export function MainSidebar() {
   const links = [
     {
-      label: "Dashboard",
-      href: "#",
+      label: "Home",
+      href: "/",
       icon: (
-        <IconBrandTabler className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+        <IconHome className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+      ),
+    },
+    {
+      label: "Dashboard",
+      href: "/dashboard",
+      icon: (
+        <IconLayoutDashboard className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
       ),
     },
     {
       label: "Profile",
-      href: "#",
+      href: "/profile",
       icon: (
-        <IconUserBolt className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
-      ),
-    },
-    {
-      label: "Settings",
-      href: "#",
-      icon: (
-        <IconSettings className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+        <IconUserCog className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
       ),
     },
     {
       label: "Logout",
       href: "#",
       icon: (
-        <IconArrowLeft className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+        <IconLogout2 className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
       ),
     },
   ];
+
   const [open, setOpen] = useState(false);
+  const [activeLink, setActiveLink] = useState("Home");
+
   return (
     <div
       className={cn(
@@ -57,7 +60,17 @@ export function MainSidebar() {
             </>
             <div className="mt-8 flex flex-col gap-2">
               {links.map((link, idx) => (
-                <SidebarLink key={idx} link={link} />
+                <SidebarLink
+                  key={idx}
+                  link={link}
+                  onClick={() => setActiveLink(link.label)}
+                  className={cn(
+                    // ✅ Active styles
+                    activeLink === link.label
+                      ? "bg-neutral-300 dark:bg-neutral-700 text-black dark:text-white"
+                      : "text-neutral-700 dark:text-neutral-200 hover:bg-neutral-200 dark:hover:bg-neutral-700/50"
+                  )}
+                />
               ))}
             </div>
           </div>
@@ -84,6 +97,7 @@ export function MainSidebar() {
     </div>
   );
 }
+
 export const Logo = () => {
   return (
     <a
@@ -101,6 +115,7 @@ export const Logo = () => {
     </a>
   );
 };
+
 export const LogoIcon = () => {
   return (
     <a
@@ -112,10 +127,10 @@ export const LogoIcon = () => {
   );
 };
 
-// Dummy dashboard component with content
 const Dashboard = () => {
   return (
     <div className="flex flex-1">
+      {/* interior area */}
       <div className="flex h-full w-full flex-1 flex-col gap-2 rounded-tl-2xl border border-neutral-200 bg-white p-2 md:p-10 dark:border-neutral-700 dark:bg-neutral-900">
         <div className="flex gap-2">
           {[...new Array(4)].map((i, idx) => (
