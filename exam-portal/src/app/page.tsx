@@ -1,9 +1,10 @@
-import { MainSidebar } from "@/components/Mainbar";
+import HomePage from "./home";
 
-export default function Home() {
+
+export default function Main() {
   return (
     <>
-      <MainSidebar />
+      <HomePage />
     </>
   );
 }
