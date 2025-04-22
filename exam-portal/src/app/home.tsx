@@ -21,14 +21,14 @@ const HomePage = () => {
       {sections.map((section, index) => (
         <div
           key={index}
-          className="border rounded-lg shadow-md p-4 flex flex-col mx-auto justify-center text-center md:min-w-[500px] md:min-h-[200px] bg-slate-300"
+          className="border rounded-lg shadow-lg p-8 flex flex-col mx-auto justify-center text-center md:min-w-[500px] md:min-h-[200px] bg-neutral-300"
         >
           <h2 className="text-xl font-bold mb-2 dark:text-[#333]">
             {section.heading}
           </h2>
           <p className="text-gray-600 mb-4">{section.description}</p>
           <button
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 cursor-pointer"
+            className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded cursor-pointer transition duration-200 ease-in-out shadow-md shadow-blue-500/50 hover:shadow-lg hover:shadow-blue-500/50"
             onClick={() =>
               (window.location.href = `/${section.heading.toLowerCase()}`)
             }
