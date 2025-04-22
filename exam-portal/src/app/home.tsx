@@ -17,7 +17,7 @@ const HomePage = () => {
   ];
 
   return (
-    <div className="grid grid-cols-1 gap-4 p-4 content-center h-full">
+    <div className="grid grid-cols-1 gap-4 p-4 content-center h-full bg-neutral-900 rounded-lg">
       {sections.map((section, index) => (
         <div
           key={index}

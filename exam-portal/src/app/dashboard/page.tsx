@@ -8,7 +8,7 @@ const DashboardPage = () => {
     ];
 
     return (
-        <div className="dashboard">
+        <div className="dashboard bg-neutral-900 rounded-lg h-full p-14">
             <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
             <table className="table-auto w-full border-collapse border border-gray-300">
                 <thead>

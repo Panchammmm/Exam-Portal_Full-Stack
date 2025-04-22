@@ -3,26 +3,48 @@
 import { useEffect, useState } from "react";
 import historyQuestions from "../questions";
 
+type Answer = {
+  question: string;
+  selectedOptionIndex: number;
+  selectedOptionText: string;
+};
+
 const ResultPage = () => {
-  const [userAnswers, setUserAnswers] = useState<number[]>([]);
+  const [userAnswers, setUserAnswers] = useState<Answer[]>([]);
+  const [score, setScore] = useState(0);
 
   useEffect(() => {
     const stored = sessionStorage.getItem("historyAnswers");
     if (stored) {
-      setUserAnswers(JSON.parse(stored));
+      const parsedAnswers: Answer[] = JSON.parse(stored);
+      setUserAnswers(parsedAnswers);
+
+      // Calculate score
+      const calculatedScore = parsedAnswers.reduce((acc, ans, index) => {
+        if (ans?.selectedOptionIndex === historyQuestions[index].answer) {
+          return acc + 1;
+        }
+        return acc;
+      }, 0);
+
+      setScore(calculatedScore);
     }
   }, []);
 
   return (
     <div className="p-14 min-h-screen bg-neutral-900 rounded-lg">
-      <h1 className="text-2xl font-bold text-slate-200 mb-6">
-        😎 You have successfully submitted your answers!
+      <h1 className="text-2xl font-bold text-slate-200 mb-2">
+        You have successfully submitted your answers! 😎
       </h1>
+
+      <h2 className="text-xl font-semibold text-green-300 mb-8 mt-2">
+        🎯 You scored : {score} out of {historyQuestions.length}
+      </h2>
 
       <div className="space-y-6">
         {historyQuestions.map((q, i) => {
           const userAnswer = userAnswers[i];
-          const isCorrect = userAnswer === q.answer;
+          const isCorrect = userAnswer?.selectedOptionIndex === q.answer;
 
           return (
             <div
@@ -38,10 +60,8 @@ const ResultPage = () => {
 
               <p>
                 <span className="font-medium">Your Answer: </span>
-                <span className={isCorrect ? "text-green-600" : "text-red-600"}>
-                  {userAnswer !== null && userAnswer !== undefined
-                    ? q.options[userAnswer]
-                    : "Not Answered"}
+                <span className={isCorrect ? "text-green-400" : "text-red-400"}>
+                  {userAnswer?.selectedOptionText || "Not Answered"}
                 </span>
               </p>
 

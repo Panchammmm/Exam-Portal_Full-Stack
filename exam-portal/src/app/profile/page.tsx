@@ -40,7 +40,7 @@ const ProfilePage = () => {
   }, []);
 
   return (
-    <div className="p-6 max-w-xl mx-auto space-y-8 text-center">
+    <div className="h-full w-full p-14 mx-auto space-y-8 text-center bg-neutral-900 rounded-lg">
       <h1 className="text-3xl font-bold mb-4">Profile</h1>
 
       <section className="space-y-4">
